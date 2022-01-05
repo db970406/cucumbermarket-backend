@@ -7,11 +7,12 @@
 
 import "dotenv/config"
 import { ApolloServer } from "apollo-server"
-import schema from './schema'
+import { resolvers, typeDefs } from './schema'
 import { findUser } from './users/users.utils'
 
 const server = new ApolloServer({
-    schema,
+    typeDefs,
+    resolvers,
     context: async ({ req }) => {
         return {
             loggedInUser: await findUser(req.headers.token)

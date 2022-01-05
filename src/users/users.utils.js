@@ -7,6 +7,7 @@
 
 import client from '../client'
 import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 /* 
 서버가 요청을 받을 때 브라우저에게 토큰을 받아 
@@ -41,4 +42,13 @@ export const checkLoginResolver = (resolver) => (root, args, ctx, info) => {
         }
     }
     return resolver(root, args, ctx, info)
+}
+
+// 비밀번호 조건
+export const pwStandard = async (password) => {
+    const regExpPassword = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(password)
+    if (!regExpPassword) throw new Error("비밀번호는 8자리 이상으로 숫자, 문자, 특수문자가 필요합니다.")
+
+    const hashPassword = await bcrypt.hash(password, 10)
+    return hashPassword
 }

@@ -14,7 +14,12 @@ export default gql`
         email:String!
         username:String!
         location:String
+        introduce:String
+        avatar:String
         createdAt:String!
         updatedAt:String!
+        isMe:Boolean!
+        items:[Item]
+        itemPhotos:[ItemPhoto]
     }
 `

@@ -11,12 +11,38 @@ datasource db {
 }
 
 model User {
+  id         Int         @id @default(autoincrement())
+  name       String
+  username   String      @unique
+  email      String      @unique
+  password   String
+  location   String?
+  introduce  String?
+  avatar     String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  items      Item[]
+  itemPhotos ItemPhoto[]
+}
+
+model Item {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String?
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemPhotos  ItemPhoto[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  userId      Int
+}
+
+model ItemPhoto {
   id        Int      @id @default(autoincrement())
-  name      String
-  username  String   @unique
-  email     String   @unique
-  password  String
-  location  String?
+  file      String   @unique
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  itemId    Int
+  userId    Int
 }

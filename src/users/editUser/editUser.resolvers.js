@@ -1,13 +1,13 @@
 /* 
 작성자 : SJ
-파일 역할 : editUser mutation 요청 시 처리하는 방법
 작성일 : 2022.01.04
-수정일 : -----
+수정일 : 2022.01.05
 */
 
 import client from '../../client'
 import bcrypt from "bcrypt"
-import { checkLoginResolver } from '../users.utils'
+import { checkLoginResolver, pwStandard } from '../users.utils'
+import { uploadToAWS } from "../../public/public.utils"
 
 export default {
     Mutation: {
@@ -19,7 +19,9 @@ export default {
                     username,
                     email,
                     password,
-                    location
+                    location,
+                    introduce,
+                    avatar
                 },
                 {
                     loggedInUser
@@ -41,9 +43,14 @@ export default {
                         if (isAlreadyTaken) throw new Error("이미 존재하는 유저명 혹은 이메일입니다.")
                     }
 
-                    let hashPassword = null
+                    let filterPassword = null
                     if (password) {
-                        hashPassword = await bcrypt.hash(password, 10)
+                        filterPassword = await pwStandard(password)
+                    }
+
+                    let avatarUrl = null
+                    if (avatar) {
+                        avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars")
                     }
 
                     await client.user.update({
@@ -54,8 +61,10 @@ export default {
                             name,
                             username,
                             email,
-                            ...(hashPassword && { password: hashPassword }),
-                            location
+                            ...(filterPassword && { password: filterPassword }),
+                            location,
+                            introduce,
+                            ...(avatarUrl && { avatar: avatarUrl })
                         }
                     })
 

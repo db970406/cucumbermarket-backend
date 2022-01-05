@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "dev": "nodemon"
   },
   "author": "",
@@ -20,10 +21,15 @@
     "@graphql-tools/schema": "^8.3.1",
     "@prisma/client": "^3.7.0",
     "apollo-server": "^2.25.2",
+    "aws-sdk": "^2.1050.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^3.7.0"
+  },
+  "resolutions": {
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
   }
 }
