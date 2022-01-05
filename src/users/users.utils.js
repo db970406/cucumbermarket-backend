@@ -33,7 +33,15 @@ export const findUser = async (token) => {
 */
 export const checkLoginResolver = (resolver) => (root, args, ctx, info) => {
     if (!ctx.loggedInUser) {
-        if (info.operation.operation === "query") {
+        const { returnType, parentType, operation } = info
+
+        // 로그인이 필요한 resolver가 mutation operation이지만 model을 반환할 경우
+        if (returnType !== "MutationResults" && String(parentType) === "Mutation") {
+            return null
+        }
+
+        // 로그인이 필요한 resolver가 query operation의 경우 null을 return
+        if (operation.operation === "query") {
             return null
         }
         return {

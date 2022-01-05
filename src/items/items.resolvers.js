@@ -32,6 +32,12 @@ export default {
             }
         }),
 
+        likeCount: ({ id }) => client.like.count({
+            where: {
+                itemId: id
+            }
+        }),
+
         isLiked: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id
     },
     ItemPhoto: {

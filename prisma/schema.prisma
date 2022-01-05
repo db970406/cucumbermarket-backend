@@ -24,6 +24,8 @@ model User {
   items      Item[]
   itemPhotos ItemPhoto[]
   likes      Like[]
+  messages   Message[]
+  rooms      Room[]
 }
 
 model Item {
@@ -59,4 +61,24 @@ model Like {
   itemId    Int
 
   @@unique([userId, itemId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  payload   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  read      Boolean  @default(false)
+  userId    Int
+  roomId    Int
+}
+
+model Room {
+  id        Int       @id @default(autoincrement())
+  users     User[]
+  messages  Message[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

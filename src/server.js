@@ -13,9 +13,23 @@ import { findUser } from './users/users.utils'
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({ req }) => {
-        return {
-            loggedInUser: await findUser(req.headers.token)
+    context: async ({ req, connection }) => {
+        if (req) {
+            return {
+                loggedInUser: await findUser(req.headers.token)
+            }
+        } else if (connection) {
+            return {
+                loggedInUser: connection.context.loggedInUser
+            }
+        }
+    },
+    subscriptions: {
+        onConnect: async ({ token }) => {
+            if (!token) throw new Error("로그인이 필요합니다.")
+            return {
+                loggedInUser: await findUser(token)
+            }
         }
     }
 })
