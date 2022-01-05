@@ -1,0 +1,29 @@
+{
+  "name": "cucumbermarket-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.5.3",
+    "@graphql-tools/merge": "^8.2.1",
+    "@graphql-tools/schema": "^8.3.1",
+    "@prisma/client": "^3.7.0",
+    "apollo-server": "^2.25.2",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^3.7.0"
+  }
+}
