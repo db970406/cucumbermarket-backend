@@ -17,6 +17,8 @@ export default gql`
         createdAt:String!
         updatedAt:String!
         isMine:Boolean!
+        likes:[User]
+        isLiked:Boolean!
     }
     type ItemPhoto{
         id:Int!

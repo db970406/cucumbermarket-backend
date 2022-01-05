@@ -21,5 +21,6 @@ export default gql`
         isMe:Boolean!
         items:[Item]
         itemPhotos:[ItemPhoto]
+        likes:[Item]
     }
 `

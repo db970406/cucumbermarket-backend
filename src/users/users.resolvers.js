@@ -10,11 +10,23 @@ import client from '../client';
 export default {
     User: {
         isMe: ({ id }, _, { loggedInUser }) => id === loggedInUser?.id,
+
         items: ({ id }) => client.user.findUnique({
             where: { id }
         }).items(),
+
         itemPhotos: ({ id }) => client.user.findUnique({
             where: { id }
-        }).itemPhotos()
+        }).itemPhotos(),
+
+        likes: ({ id }) => client.item.findMany({
+            where: {
+                likes: {
+                    some: {
+                        userId: id
+                    }
+                }
+            },
+        })
     }
 }
