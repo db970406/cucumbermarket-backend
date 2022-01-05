@@ -15,6 +15,8 @@ export default {
         realtimeRoom: {
             subscribe: checkLoginResolver(
                 async (root, args, ctx, info) => {
+
+                    // 입장하려는 방이 내가 있는 방인지 확인
                     const room = await client.room.findFirst({
                         where: {
                             id: args.id,
@@ -27,6 +29,10 @@ export default {
                     })
                     if (!room) throw new Error("찾을 수 없는 방입니다")
 
+                    /*
+                    NEW_MESSAGE를 pubsub의 trigger로 설정하고 trigger가 감지되면 
+                    입장해있는 room의 id와 message를 send한 방의 id가 일치하는지 확인하여 맞다면 메시지를 방에 보낸다.
+                    */
                     return withFilter(
                         () => pubsub.asyncIterator(NEW_MESSAGE),
                         (payload, variables) => payload.realtimeRoom.roomId === variables.id

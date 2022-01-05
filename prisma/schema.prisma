@@ -11,21 +11,22 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  name       String
-  username   String      @unique
-  email      String      @unique
-  password   String
-  location   String?
-  introduce  String?
-  avatar     String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  items      Item[]
-  itemPhotos ItemPhoto[]
-  likes      Like[]
-  messages   Message[]
-  rooms      Room[]
+  id          Int         @id @default(autoincrement())
+  socialLogin Boolean     @default(false)
+  name        String
+  username    String      @unique
+  email       String      @unique
+  password    String?
+  location    String?
+  introduce   String?
+  avatar      String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       Item[]
+  itemPhotos  ItemPhoto[]
+  likes       Like[]
+  messages    Message[]
+  rooms       Room[]
 }
 
 model Item {

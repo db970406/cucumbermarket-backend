@@ -4,7 +4,7 @@
 수정일 : -----
 */
 
-import client from '../client';
+import client from '../client'
 
 export default {
     Message: {

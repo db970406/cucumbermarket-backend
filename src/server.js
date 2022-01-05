@@ -2,13 +2,17 @@
 작성자 : SJ
 파일 역할 : 오이마켓 백엔드 메인 서버
 작성일 : 2022.01.04
-수정일 : -----
+수정일 : 2022.01.05
 */
 
 import "dotenv/config"
-import { ApolloServer } from "apollo-server"
-import { resolvers, typeDefs } from './schema'
-import { findUser } from './users/users.utils'
+import { ApolloServer } from "apollo-server-express"
+import { resolvers, typeDefs } from './apollo/schema'
+import { findUser } from './apollo/users/users.utils'
+import express from "express"
+import morgan from "morgan"
+import { createServer } from "http"
+import socialRouter from './express/router/socialRouter'
 
 const server = new ApolloServer({
     typeDefs,
@@ -34,5 +38,16 @@ const server = new ApolloServer({
     }
 })
 
+const app = express()
+
+// 소셜 로그인은 express서버를 사용해서 구현하기 위함
+app.use(morgan("tiny"))
+app.use("/social", socialRouter)
+
+server.applyMiddleware({ app })
+
+const httpServer = createServer(app)
+server.installSubscriptionHandlers(httpServer)
+
 const PORT = process.env.PORT
-server.listen(PORT, () => console.log(`GraphQL Server on http://localhost:${PORT}`))
+httpServer.listen(PORT, () => console.log(`GraphQL Server on http://localhost:${PORT}`))

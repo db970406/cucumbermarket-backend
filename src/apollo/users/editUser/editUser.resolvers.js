@@ -5,7 +5,6 @@
 */
 
 import client from '../../client'
-import bcrypt from "bcrypt"
 import { checkLoginResolver, pwStandard } from '../users.utils'
 import { uploadToAWS } from "../../public/public.utils"
 

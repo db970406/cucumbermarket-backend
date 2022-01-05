@@ -7,7 +7,6 @@
 
 import client from '../client';
 
-
 export default {
     Item: {
         user: ({ userId }) => client.user.findUnique({
