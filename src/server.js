@@ -13,6 +13,7 @@ import express from "express"
 import morgan from "morgan"
 import { createServer } from "http"
 import socialRouter from './express/router/socialRouter'
+import cors from "cors"
 
 const server = new ApolloServer({
     typeDefs,
@@ -43,6 +44,7 @@ const app = express()
 // 소셜 로그인은 express서버를 사용해서 구현하기 위함
 app.use(morgan("tiny"))
 app.use("/social", socialRouter)
+app.use(cors());
 
 server.applyMiddleware({ app })
 

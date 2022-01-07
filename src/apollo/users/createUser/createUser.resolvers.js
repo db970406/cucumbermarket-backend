@@ -24,13 +24,17 @@ export default {
 
                 const filterPassword = await pwStandard(password)
 
+                // 가입 시 기본적으로 세팅되는 avatar
+                const defaultAvatar = "https://cucumbermarket-upload.s3.ap-northeast-2.amazonaws.com/avatars/no-profile-picture.png"
+
                 await client.user.create({
                     data: {
                         name,
                         username: username.toLowerCase(),
                         email,
                         password: filterPassword,
-                        location
+                        location,
+                        avatar: defaultAvatar
                     }
                 })
 

@@ -5,10 +5,13 @@
 */
 
 import express from "express"
-import { githubStart, githubFinish } from '../controller/socialController'
+import { githubStart, githubFinish, naverStart, naverFinish } from '../controller/socialController'
 
 const socialRouter = express.Router()
 
 socialRouter.get("/github/start", githubStart)
 socialRouter.get("/github/finish", githubFinish)
+
+socialRouter.get("/naver/start", naverStart)
+socialRouter.get("/naver/finish", naverFinish)
 export default socialRouter

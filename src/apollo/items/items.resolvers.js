@@ -37,7 +37,17 @@ export default {
             }
         }),
 
-        isLiked: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id
+        isLiked: async ({ id }, _, { loggedInUser }) => {
+            if (!loggedInUser) return false
+
+            const check = await client.like.count({
+                where: {
+                    userId: loggedInUser.id,
+                    itemId: id
+                }
+            })
+            return Boolean(check)
+        }
     },
     ItemPhoto: {
         item: ({ itemId }) => client.item.findUnique({

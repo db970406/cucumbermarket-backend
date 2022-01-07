@@ -26,9 +26,9 @@ export default {
                     if (isLike) {
                         await client.like.delete({
                             where: {
-                                itemId_userId: {
+                                userId_itemId: {
+                                    userId: loggedInUser.id,
                                     itemId: id,
-                                    userId: loggedInUser.id
                                 }
                             }
                         })
