@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : ------
+수정일 : 2022.01.07
 */
 
 import client from '../../client';
@@ -22,20 +22,35 @@ export default {
                     if (!item) throw new Error("없는 물건입니다.")
                     else if (item.userId !== loggedInUser.id) throw new Error("수정 권한이 없습니다.")
                     else {
-                        let fileUrl = null
-                        if (file) {
-                            fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos")
-                        }
-                        await client.item.update({
+                        const item = await client.item.update({
                             where: {
                                 id
                             },
                             data: {
-                                ...(fileUrl && { file: fileUrl }),
                                 title,
                                 description
                             }
                         })
+
+                        let fileUrl;
+                        if (file) {
+                            fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos")
+                            await client.itemPhoto.create({
+                                data: {
+                                    user: {
+                                        connect: {
+                                            id: loggedInUser.id
+                                        }
+                                    },
+                                    item: {
+                                        connect: {
+                                            id: item.id
+                                        }
+                                    },
+                                    file: fileUrl
+                                }
+                            })
+                        }
                     }
 
                     return {
