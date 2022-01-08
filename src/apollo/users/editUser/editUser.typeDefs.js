@@ -10,9 +10,6 @@ export default gql`
     type Mutation{
         editUser(
             name:String,
-            username:String,
-            email:String,
-            password:String,
             location:String,
             introduce:String,
             avatar:Upload

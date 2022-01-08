@@ -15,9 +15,6 @@ export default {
                 _,
                 {
                     name,
-                    username,
-                    email,
-                    password,
                     location,
                     introduce,
                     avatar
@@ -27,7 +24,7 @@ export default {
                 }
             ) => {
                 try {
-                    if (username || email) {
+                    /* if (username || email) {
                         const isAlreadyTaken = await client.user.count({
                             where: {
                                 OR: [
@@ -45,10 +42,10 @@ export default {
                     let filterPassword = null
                     if (password) {
                         filterPassword = await pwStandard(password)
-                    }
+                    } */
 
                     let avatarUrl = null
-                    if (avatar) {
+                    if (avatar.length !== 0) {
                         avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars")
                     }
 
@@ -58,9 +55,9 @@ export default {
                         },
                         data: {
                             name,
-                            username,
+                            /* username,
                             email,
-                            ...(filterPassword && { password: filterPassword }),
+                            ...(filterPassword && { password: filterPassword }), */
                             location,
                             introduce,
                             ...(avatarUrl && { avatar: avatarUrl })
