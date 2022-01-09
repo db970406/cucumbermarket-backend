@@ -133,9 +133,9 @@ export const naverLogin = async (req, res) => {
     })
 
     let user;
-    if (!findUserEmail) {
+    if (!findUserEmail && !user) {
         const hashPassword = await bcrypt.hash(String(Date.now()), 10)
-        user = await client.user.create({
+        await client.user.create({
             data: {
                 name: response.name,
                 socialLogin: "NAVER",
@@ -145,13 +145,13 @@ export const naverLogin = async (req, res) => {
                 password: hashPassword
             }
         })
-    } else {
-        user = await client.user.findUnique({
-            where: {
-                email: response.email
-            }
-        })
     }
+    user = await client.user.findUnique({
+        where: {
+            email: response.email
+        }
+    })
+
     const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRET_KEY)
     return res.status(200).json({ jwtToken: jwtToken })
 
