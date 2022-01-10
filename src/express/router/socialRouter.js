@@ -5,7 +5,7 @@
 */
 
 import express from "express"
-import { githubStart, githubFinish, naverStart, naverFinish, naverLogin } from '../controller/socialController'
+import { githubStart, githubFinish, naverLogin } from '../controller/socialController'
 
 const socialRouter = express.Router()
 

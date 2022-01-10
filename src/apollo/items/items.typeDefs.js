@@ -2,7 +2,7 @@
 작성자 : SJ
 파일 역할 : 프론트에서 서버에 요청할 수 있는 Item 필드
 작성일 : 2022.01.05
-수정일 : -----
+수정일 : 2022.01.10
 */
 
 import { gql } from "apollo-server"
@@ -20,6 +20,7 @@ export default gql`
         likes:[User]
         likeCount:Int!
         isLiked:Boolean!
+        itemPhotoCount:Int!
     }
     type ItemPhoto{
         id:Int!

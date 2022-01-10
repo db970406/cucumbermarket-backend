@@ -1,9 +1,10 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : ------
+수정일 : 2022.01.10
 */
 
+import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 
 export default {
@@ -13,12 +14,17 @@ export default {
                 try {
                     const itemPhoto = await client.itemPhoto.findUnique({
                         where: { id },
-                        select: {
-                            userId: true
+                        include: {
+                            item: {
+                                select: {
+                                    itemPhotos: true
+                                }
+                            }
                         }
                     })
                     if (!itemPhoto) throw new Error("없는 사진입니다.")
                     else if (itemPhoto.userId !== loggedInUser.id) throw new Error("삭제 권한이 없습니다.")
+                    else if (itemPhoto.item.itemPhotos.length === 1) throw new Error("사진을 더 이상 삭제할 수 없습니다")
                     else {
                         await client.itemPhoto.delete({
                             where: {

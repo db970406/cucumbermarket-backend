@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : ------
+수정일 : 2022.01.10
 */
 
 import fetch from "node-fetch"
@@ -95,26 +95,7 @@ export const githubFinish = async (req, res) => {
 }
 
 
-
 export const naverLogin = async (req, res) => {
-    /* const baseUrl = "https://nid.naver.com/oauth2.0/token"
-    const config = {
-        grant_type: "authorization_code",
-        client_id: process.env.SOCIAL_NAVER_KEY,
-        client_secret: process.env.SOCIAL_NAVER_SECRET,
-        code: req.query.code,
-        state: process.env.SOCIAL_NAVER_STATE
-    }
-    const params = new URLSearchParams(config).toString()
-
-    const reqUrl = `${baseUrl}?${params}`
-
-    const token = await (
-        await fetch(reqUrl, {
-            method: "POST"
-        })
-    ).json()
- */
     const { token } = req.body
     const apiUrl = `https://openapi.naver.com/v1/nid/me`
     const userData = await (
