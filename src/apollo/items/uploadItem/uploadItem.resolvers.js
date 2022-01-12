@@ -13,7 +13,6 @@ export default {
         uploadItem: checkLoginResolver(
             async (_, { title, description, files }, { loggedInUser }) => {
                 try {
-
                     const item = await client.item.create({
                         data: {
                             title,
@@ -25,21 +24,25 @@ export default {
                             }
                         }
                     })
-                    const fileUrl = await uploadToAWS(files, loggedInUser.id, "itemPhotos")
-                    await client.itemPhoto.create({
-                        data: {
-                            file: fileUrl,
-                            user: {
-                                connect: {
-                                    id: loggedInUser.id
-                                }
-                            },
-                            item: {
-                                connect: {
-                                    id: item.id
+
+                    await files.map(async (file) => {
+                        const fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos")
+
+                        await client.itemPhoto.create({
+                            data: {
+                                file: fileUrl,
+                                user: {
+                                    connect: {
+                                        id: loggedInUser.id
+                                    }
+                                },
+                                item: {
+                                    connect: {
+                                        id: item.id
+                                    }
                                 }
                             }
-                        }
+                        })
                     })
 
                     return item

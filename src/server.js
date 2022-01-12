@@ -41,8 +41,8 @@ const server = new ApolloServer({
 
 const app = express()
 app.use(express.json())
-
-app.use(cors());
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
 
 // 소셜 로그인은 express서버를 사용해서 구현하기 위함
 app.use(morgan("tiny"))
