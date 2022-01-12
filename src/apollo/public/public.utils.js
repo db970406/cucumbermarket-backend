@@ -18,7 +18,6 @@ AWS.config.update({
 // AWS S3 저장소에 이미지 저장하고 URL을 return
 export const uploadToAWS = async (file, userId, folderName) => {
     const { filename, createReadStream } = await file[0]
-
     // AWS S3저장소에 겹치는 이미지 파일명이 최대한 겹치지 않게끔 한다.
     const newFilename = `${folderName}/${userId}-${Date.now()}-${filename}`
 
@@ -28,6 +27,5 @@ export const uploadToAWS = async (file, userId, folderName) => {
         Body: createReadStream(),
         ACL: "public-read"
     }).promise()
-
     return upload?.Location
 }

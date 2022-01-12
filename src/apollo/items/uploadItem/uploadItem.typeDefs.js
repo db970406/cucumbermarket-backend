@@ -11,7 +11,7 @@ export default gql`
         uploadItem(
             title:String!
             description:String
-            file:Upload!
+            files:Upload!
         ):Item
     }
 `

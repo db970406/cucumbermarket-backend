@@ -11,7 +11,7 @@ import { checkLoginResolver } from '../../users/users.utils'
 export default {
     Mutation: {
         uploadItem: checkLoginResolver(
-            async (_, { title, description, file }, { loggedInUser }) => {
+            async (_, { title, description, files }, { loggedInUser }) => {
                 try {
 
                     const item = await client.item.create({
@@ -25,9 +25,7 @@ export default {
                             }
                         }
                     })
-
-                    const fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos")
-
+                    const fileUrl = await uploadToAWS(files, loggedInUser.id, "itemPhotos")
                     await client.itemPhoto.create({
                         data: {
                             file: fileUrl,

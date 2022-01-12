@@ -23,5 +23,7 @@ export default gql`
         items:[Item]
         itemPhotos:[ItemPhoto]
         likes:[Item]
+        likeCount:Int!
+        itemCount:Int!
     }
 `
