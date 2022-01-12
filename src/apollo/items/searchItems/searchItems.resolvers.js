@@ -1,18 +1,34 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : ------
+수정일 : 2022.01.12
 */
 
 import client from '../../client';
 
 export default {
     Query: {
-        searchItems: (_, { title }) => client.item.findMany({
+        searchItems: (_, { keyword }) => client.item.findMany({
             where: {
-                title: {
-                    startsWith: title
-                }
+                OR: [
+                    {
+                        title: {
+                            contains: keyword
+                        },
+                    },
+                    {
+                        user: {
+                            location: {
+                                contains: keyword
+                            }
+                        },
+                    },
+                    {
+                        description: {
+                            contains: keyword
+                        }
+                    }
+                ]
             }
         })
     }
