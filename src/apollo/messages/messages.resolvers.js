@@ -14,7 +14,13 @@ export default {
     },
     Room: {
         users: ({ id }) => client.room.findUnique({ where: { id } }).users(),
-        messages: ({ id }) => client.room.findUnique({ where: { id } }).messages(),
+        messages: ({ id }, { offset }) => client.message.findMany({
+            where: {
+                roomId: id
+            },
+            take: offset >= 0 ? 6 : undefined,
+            skip: offset >= 0 ? offset : undefined,
+        }),
         unreadCount: async ({ id }, _, { loggedInUser }) => {
             if (!loggedInUser) return 0
 
