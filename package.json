@@ -13,7 +13,8 @@
     "@babel/core": "^7.16.7",
     "@babel/node": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prisma": "^3.8.0"
   },
   "dependencies": {
     "@graphql-tools/load-files": "^6.5.3",
@@ -30,8 +31,7 @@
     "graphql": "^15.8.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.1",
-    "prisma": "^3.7.0"
+    "node-fetch": "^2.6.1"
   },
   "resolutions": {
     "fs-capacitor": "^6.2.0",

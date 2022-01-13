@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : -----
+수정일 : 2022.01.13
 */
 
 import client from '../../client';
@@ -12,12 +12,22 @@ export default {
         seeRoom: checkLoginResolver(
             async (_, { id }, { loggedInUser }) => client.room.findFirst({
                 where: {
-                    id,
-                    users: {
-                        some: {
-                            id: loggedInUser.id
+                    AND: [
+                        {
+                            users: {
+                                some: {
+                                    id
+                                }
+                            }
+                        },
+                        {
+                            users: {
+                                some: {
+                                    id: loggedInUser.id
+                                }
+                            }
                         }
-                    }
+                    ]
                 }
             })
         )

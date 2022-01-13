@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : 2022.01.10
+수정일 : 2022.01.13
 */
 
 import fetch from "node-fetch"
@@ -12,23 +12,14 @@ import jwt from "jsonwebtoken"
 // 깃허브, 네이버 소셜로그인 구현
 
 //https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
-export const githubStart = (req, res) => {
-    const baseUrl = `https://github.com/login/oauth/authorize`
-    const config = {
-        client_id: process.env.SOCIAL_GITHUB_KEY,
-        scope: "read:user user:email"
-    }
-    const params = new URLSearchParams(config).toString()
+export const githubLogin = async (req, res) => {
+    const { code } = req.body
 
-    const reqUrl = `${baseUrl}?${params}`
-    return res.redirect(reqUrl)
-}
-export const githubFinish = async (req, res) => {
     const baseUrl = "https://github.com/login/oauth/access_token"
     const config = {
         client_id: process.env.SOCIAL_GITHUB_KEY,
         client_secret: process.env.SOCIAL_GITHUB_SECRET,
-        code: req.query.code
+        code
     }
     const params = new URLSearchParams(config).toString()
 
@@ -44,6 +35,7 @@ export const githubFinish = async (req, res) => {
 
     if ("access_token" in token) {
         const { access_token } = token
+        console.log("access_ : ", access_token)
         const apiUrl = "https://api.github.com"
         const userData = await (
             await fetch(`${apiUrl}/user`, {
@@ -59,6 +51,8 @@ export const githubFinish = async (req, res) => {
                 }
             })
         ).json()
+        console.log(userData)
+        console.log(emailData)
 
         const emailObj = emailData.find(email => email.primary === true && email.verified === true)
         const findUserEmail = await client.user.count({
@@ -68,8 +62,9 @@ export const githubFinish = async (req, res) => {
         })
 
         let user;
-        if (!findUserEmail) {
+        if (!findUserEmail && !user) {
             const hashPassword = await bcrypt.hash(String(Date.now()), 10)
+
             user = await client.user.create({
                 data: {
                     name: userData.name,
@@ -81,13 +76,12 @@ export const githubFinish = async (req, res) => {
                     password: hashPassword
                 }
             })
-        } else {
-            user = await client.user.findUnique({
-                where: {
-                    email: emailObj.email
-                }
-            })
         }
+        user = await client.user.findUnique({
+            where: {
+                email: emailObj.email
+            }
+        })
 
         const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRET_KEY)
         return res.json({ token: jwtToken })
@@ -97,6 +91,7 @@ export const githubFinish = async (req, res) => {
 
 export const naverLogin = async (req, res) => {
     const { token } = req.body
+
     const apiUrl = `https://openapi.naver.com/v1/nid/me`
     const userData = await (
         await fetch(apiUrl, {
@@ -135,5 +130,4 @@ export const naverLogin = async (req, res) => {
 
     const jwtToken = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRET_KEY)
     return res.status(200).json({ jwtToken: jwtToken })
-
 }
