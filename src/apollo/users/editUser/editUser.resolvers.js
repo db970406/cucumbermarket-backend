@@ -45,7 +45,7 @@ export default {
                     } */
 
                     let avatarUrl = null
-                    if (avatar.length !== 0) {
+                    if (avatar) {
                         avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars")
                     }
 

@@ -18,6 +18,9 @@ export default {
                             id: loggedInUser.id
                         }
                     }
+                },
+                orderBy: {
+                    createdAt: "desc"
                 }
             })
         )
