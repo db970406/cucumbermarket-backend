@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.04
-수정일 : 2022.01.05
+수정일 : 2022.01.15
 */
 
 import client from '../../client'
@@ -45,7 +45,7 @@ export default {
                     } */
 
                     let avatarUrl = null
-                    if (avatar) {
+                    if (avatar?.length > 0) {
                         avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars")
                     }
 
