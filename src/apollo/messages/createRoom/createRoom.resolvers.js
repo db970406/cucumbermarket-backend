@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.15
-수정일 : ------
+수정일 : 2022.01.16
 */
 
 import client from '../../client';
@@ -35,6 +35,9 @@ export default {
                                     }
                                 }
                             ]
+                        },
+                        include: {
+                            messages: true
                         }
                     })
                     if (room) return room
