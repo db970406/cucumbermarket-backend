@@ -13,13 +13,13 @@ import jwt from "jsonwebtoken"
 // 카카오는 사업자 미등록으로 비즈앱이 아니라 이메일을 못가져와서 구현은 못하였고 방법만 숙지함
 
 export const githubLogin = async (req, res) => {
-    const { githubCode } = req.body
+    const { code } = req.body
 
     const baseUrl = "https://github.com/login/oauth/access_token"
     const config = {
         client_id: process.env.SOCIAL_GITHUB_KEY,
         client_secret: process.env.SOCIAL_GITHUB_SECRET,
-        code: githubCode
+        code
     }
     const params = new URLSearchParams(config).toString()
 
@@ -36,21 +36,19 @@ export const githubLogin = async (req, res) => {
     if ("access_token" in token) {
         const { access_token } = token
         console.log("access_ : ", access_token)
+
         const apiUrl = "https://api.github.com"
-        const userData = await (
-            await fetch(`${apiUrl}/user`, {
-                headers: {
-                    Authorization: `token ${access_token}`
-                }
-            })
-        ).json()
-        const emailData = await (
-            await fetch(`${apiUrl}/user/emails`, {
-                headers: {
-                    Authorization: `token ${access_token}`
-                }
-            })
-        ).json()
+        const userData =await fetch(`${apiUrl}/user`, {
+            headers: {
+                Authorization: `token ${access_token}`
+            }
+        })
+
+        const emailData = await fetch(`${apiUrl}/user/emails`, {
+            headers: {
+                Authorization: `token ${access_token}`
+            }
+        })
         console.log(userData)
         console.log(emailData)
 
@@ -90,15 +88,14 @@ export const githubLogin = async (req, res) => {
 
 
 export const naverLogin = async (req, res) => {
-    const { naverCode } = req.body
-
+    const { code } = req.body
     const baseUrl = `https://nid.naver.com/oauth2.0/token`
 
     const config = {
         grant_type: "authorization_code",
         client_id: process.env.SOCIAL_NAVER_KEY,
         client_secret: process.env.SOCIAL_NAVER_SECRET,
-        code: naverCode,
+        code,
         state: process.env.SOCIAL_NAVER_STATE
     }
 
@@ -108,10 +105,8 @@ export const naverLogin = async (req, res) => {
     const token = await (
         await fetch(reqUrl, {
             method: "POST"
-
         })
     ).json()
-    console.log(token)
 
     if ("access_token" in token) {
         const { access_token } = token
@@ -159,14 +154,14 @@ export const naverLogin = async (req, res) => {
 }
 
 export const kakaoLogin = async (req, res) => {
-    const { kakaoCode } = req.body
+    const { code } = req.body
     const baseUrl = "https://kauth.kakao.com/oauth/token"
 
     const config = {
         grant_type: "authorization_code",
         client_id: process.env.KAKAO_REST_API_KEY,
         redirect_uri: process.env.SOCIAL_KAKAO_CODE_REDIRECT,
-        code: kakaoCode
+        code
     }
 
     const params = new URLSearchParams(config).toString()
@@ -195,10 +190,10 @@ export const kakaoLogin = async (req, res) => {
                 }
             })
         ).json()
-
         // 그런데 카카오는 사업자 등록해서 비즈앱으로 전환해야 이메일 필수 동의가 가능하다.
         // 카카오 소셜로그인 방식은 알았으니 여기까지만 하자
         return;
+
         /* const findUserEmail = await client.user.count({
             where: {
                 email: userData.properties.email
