@@ -23,6 +23,7 @@ export default {
                             userId: loggedInUser.id
                         }
                     })
+
                     if (isLike) {
                         await client.like.delete({
                             where: {

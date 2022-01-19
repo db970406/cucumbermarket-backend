@@ -29,18 +29,16 @@ export default {
             },
         }),
 
-        likeCount: async (_, __, { loggedInUser }) => {
-            if (!loggedInUser) return 0;
-
+        likeCount: async ({ id }) => {
             const count = await client.like.count({
                 where: {
-                    userId: loggedInUser.id
+                    userId: id
                 }
             })
             return count
         },
 
-        itemCount: async ({ id }) => client.item.count({
+        itemCount: ({ id }) => client.item.count({
             where: {
                 userId: id
             }
