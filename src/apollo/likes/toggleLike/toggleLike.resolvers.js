@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : ------
+수정일 : 2022.01.19
 */
 
 import client from '../../client';
@@ -12,10 +12,10 @@ export default {
         toggleLike: checkLoginResolver(
             async (_, { id }, { loggedInUser }) => {
                 try {
-                    const item = await client.item.count({
+                    const isExistItem = await client.item.count({
                         where: { id }
                     })
-                    if (!item) throw new Error("없는 물건입니다.")
+                    if (!isExistItem) throw new Error("없는 물건입니다.")
 
                     const isLike = await client.like.count({
                         where: {
@@ -50,14 +50,12 @@ export default {
                         })
                     }
 
-                    return {
-                        ok: true
-                    }
-                } catch (error) {
-                    return {
-                        ok: false,
-                        error: error.message
-                    }
+                    const item = await client.item.findUnique({
+                        where: { id }
+                    })
+                    return item
+                } catch {
+                    return null
                 }
             }
         )
