@@ -12,14 +12,14 @@ export default {
         sendMessage: checkLoginResolver(
             async (_, { payload, roomId, userId }, { loggedInUser }) => {
                 try {
-                    let room = null
+                    let room = null;
                     if (userId) {
                         const user = await client.user.count({
                             where: {
                                 id: userId
                             }
-                        })
-                        if (!user) return null
+                        });
+                        if (!user) return null;
 
                         const checkRoom = await client.room.findFirst({
                             where: {
@@ -40,9 +40,9 @@ export default {
                                     }
                                 ]
                             }
-                        })
+                        });
                         if (checkRoom) {
-                            room = checkRoom
+                            room = checkRoom;
                         } else {
                             room = await client.room.create({
                                 data: {
@@ -57,7 +57,7 @@ export default {
                                         ]
                                     }
                                 }
-                            })
+                            });
                         }
                     } else if (roomId) {
                         room = await client.room.findFirst({
@@ -69,7 +69,7 @@ export default {
                                     }
                                 }
                             }
-                        })
+                        });
                     }
                     const message = await client.message.create({
                         data: {
@@ -85,11 +85,11 @@ export default {
                                 }
                             }
                         }
-                    })
+                    });
 
-                    return message
+                    return message;
                 } catch {
-                    return null
+                    return null;
                 }
             }
         )

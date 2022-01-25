@@ -10,4 +10,4 @@ export default gql`
     type Mutation{
         readMessages(id:Int!):MutationResults!
     }
-`
+`;

@@ -28,8 +28,8 @@ export default {
                                     }
                                 ]
                             }
-                        })
-                    }
+                        });
+                    };
                     if (userId) {
                         return client.room.findFirst({
                             where: {
@@ -50,10 +50,10 @@ export default {
                                     }
                                 ]
                             }
-                        })
-                    }
+                        });
+                    };
                 } catch {
-                    return null
+                    return null;
                 }
             }
         )

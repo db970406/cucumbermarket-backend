@@ -26,4 +26,4 @@ export default gql`
         likeCount:Int!
         itemCount:Int!
     }
-`
+`;

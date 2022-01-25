@@ -10,4 +10,4 @@ export default gql`
     type Query{
         seeRoom(roomId:Int,userId:Int):Room
     }
-`
+`;

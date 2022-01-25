@@ -4,9 +4,9 @@
 수정일 : 2022.01.15
 */
 
-import client from '../../client'
-import { checkLoginResolver, pwStandard } from '../users.utils'
-import { uploadToAWS } from "../../public/public.utils"
+import client from '../../client';
+import { checkLoginResolver, pwStandard } from '../users.utils';
+import { uploadToAWS } from "../../public/public.utils";
 
 export default {
     Mutation: {
@@ -44,10 +44,10 @@ export default {
                         filterPassword = await pwStandard(password)
                     } */
 
-                    let avatarUrl = null
+                    let avatarUrl = null;
                     if (avatar?.length > 0) {
-                        avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars")
-                    }
+                        avatarUrl = await uploadToAWS(avatar, loggedInUser.id, "avatars");
+                    };
 
                     await client.user.update({
                         where: {
@@ -62,16 +62,16 @@ export default {
                             introduce,
                             ...(avatarUrl && { avatar: avatarUrl })
                         }
-                    })
+                    });
 
                     return {
                         ok: true
-                    }
+                    };
                 } catch (error) {
                     return {
                         ok: false,
                         error: error.message
-                    }
+                    };
                 }
             }
         )

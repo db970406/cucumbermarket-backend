@@ -15,4 +15,4 @@ export default gql`
             avatar:Upload
         ):MutationResults!
     }
-`
+`;

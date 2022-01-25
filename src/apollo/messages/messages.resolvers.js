@@ -4,7 +4,7 @@
 수정일 : -----
 */
 
-import client from '../client'
+import client from '../client';
 
 export default {
     Message: {
@@ -22,7 +22,7 @@ export default {
             skip: offset >= 0 ? offset : undefined,
         }),
         unreadCount: async ({ id }, _, { loggedInUser }) => {
-            if (!loggedInUser) return 0
+            if (!loggedInUser) return 0;
 
             // 내가 입장해있는 방에 메시지 중 read가 false이면서 내 메시지가 아닌 것의 개수를 센다.
             const count = await client.message.count({
@@ -40,8 +40,8 @@ export default {
                         not: loggedInUser.id
                     }
                 }
-            })
-            return count
+            });
+            return count;
         }
     }
 }

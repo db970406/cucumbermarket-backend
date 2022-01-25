@@ -5,8 +5,8 @@
 수정일 : -----
 */
 
-import client from "../../client"
-import { pwStandard } from '../users.utils'
+import client from "../../client";
+import { pwStandard } from '../users.utils';
 
 export default {
     Mutation: {
@@ -19,10 +19,10 @@ export default {
                             { email }
                         ]
                     }
-                })
-                if (isAlreadyTaken) throw new Error("이미 존재하는 유저명 혹은 이메일입니다.")
+                });
+                if (isAlreadyTaken) throw new Error("이미 존재하는 유저명 혹은 이메일입니다.");
 
-                const filterPassword = await pwStandard(password)
+                const filterPassword = await pwStandard(password);
 
                 await client.user.create({
                     data: {
@@ -32,16 +32,16 @@ export default {
                         password: filterPassword,
                         location
                     }
-                })
+                });
 
                 return {
                     ok: true
-                }
+                };
             } catch (error) {
                 return {
                     ok: false,
                     error: error.message
-                }
+                };
             }
         }
     }

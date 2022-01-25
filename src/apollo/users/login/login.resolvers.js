@@ -4,9 +4,9 @@
 수정일 : -----
 */
 
-import bcrypt from "bcrypt"
-import client from '../../client'
-import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt";
+import client from '../../client';
+import jwt from "jsonwebtoken";
 
 export default {
     Mutation: {
@@ -14,24 +14,24 @@ export default {
             try {
                 const user = await client.user.findUnique({
                     where: { username }
-                })
-                if (!user) throw new Error("존재하지 않는 유저입니다")
+                });
+                if (!user) throw new Error("존재하지 않는 유저입니다");
 
-                const pwCheck = await bcrypt.compare(password, user.password)
-                if (!pwCheck) throw new Error("잘못된 비밀번호입니다.")
+                const pwCheck = await bcrypt.compare(password, user.password);
+                if (!pwCheck) throw new Error("잘못된 비밀번호입니다.");
 
                 // jwt토큰을 만들어서 인가(Authorization)에 쓸 것이다.
-                const token = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRET_KEY)
+                const token = await jwt.sign({ id: user.id }, process.env.TOKEN_SECRET_KEY);
 
                 return {
                     ok: true,
                     token
-                }
+                };
             } catch (error) {
                 return {
                     ok: false,
                     error: error.message
-                }
+                };
             }
         }
     }

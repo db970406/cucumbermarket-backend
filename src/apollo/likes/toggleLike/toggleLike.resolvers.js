@@ -14,15 +14,15 @@ export default {
                 try {
                     const isExistItem = await client.item.count({
                         where: { id }
-                    })
-                    if (!isExistItem) throw new Error("없는 물건입니다.")
+                    });
+                    if (!isExistItem) throw new Error("없는 물건입니다.");
 
                     const isLike = await client.like.count({
                         where: {
                             itemId: id,
                             userId: loggedInUser.id
                         }
-                    })
+                    });
 
                     if (isLike) {
                         await client.like.delete({
@@ -32,7 +32,7 @@ export default {
                                     itemId: id,
                                 }
                             }
-                        })
+                        });
                     } else {
                         await client.like.create({
                             data: {
@@ -47,15 +47,15 @@ export default {
                                     }
                                 }
                             }
-                        })
+                        });
                     }
 
                     const item = await client.item.findUnique({
                         where: { id }
-                    })
-                    return item
+                    });
+                    return item;
                 } catch {
-                    return null
+                    return null;
                 }
             }
         )

@@ -21,8 +21,8 @@ export default {
                                 }
                             }
                         }
-                    })
-                    if (!room) throw new Error("없는 방입니다.")
+                    });
+                    if (!room) throw new Error("없는 방입니다.");
 
                     await client.message.updateMany({
                         where: {
@@ -42,15 +42,15 @@ export default {
                         data: {
                             read: true
                         }
-                    })
+                    });
                     return {
                         ok: true
-                    }
+                    };
                 } catch (error) {
                     return {
                         ok: false,
                         error: error.message
-                    }
+                    };
                 }
             }
         )

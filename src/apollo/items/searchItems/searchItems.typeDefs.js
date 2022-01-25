@@ -10,4 +10,4 @@ export default gql`
     type Query{
         searchItems(keyword:String!):[Item]
     }
-`
+`;

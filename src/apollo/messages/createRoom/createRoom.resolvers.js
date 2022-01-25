@@ -14,8 +14,8 @@ export default {
                 try {
                     const user = await client.user.count({
                         where: { id }
-                    })
-                    if (!user) return null
+                    });
+                    if (!user) return null;
 
                     const room = await client.room.findFirst({
                         where: {
@@ -39,8 +39,8 @@ export default {
                         include: {
                             messages: true
                         }
-                    })
-                    if (room) return room
+                    });
+                    if (room) return room;
                     else {
                         return client.room.create({
                             data: {
@@ -55,10 +55,10 @@ export default {
                                     ]
                                 }
                             }
-                        })
+                        });
                     }
                 } catch {
-                    return null
+                    return null;
                 }
             }
         )

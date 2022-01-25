@@ -10,4 +10,4 @@ export default gql`
     type Subscription{
         realtimeRoom(id:Int!):Message
     }
-`
+`;

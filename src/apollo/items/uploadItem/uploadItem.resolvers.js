@@ -4,9 +4,9 @@
 수정일 : 2022.01.12
 */
 
-import client from '../../client'
-import { uploadToAWS } from '../../public/public.utils'
-import { checkLoginResolver } from '../../users/users.utils'
+import client from '../../client';
+import { uploadToAWS } from '../../public/public.utils';
+import { checkLoginResolver } from '../../users/users.utils';
 
 export default {
     Mutation: {
@@ -23,8 +23,8 @@ export default {
                                 }
                             }
                         }
-                    })
-                    const fileUrl = await uploadToAWS(files, loggedInUser.id, "itemPhotos")
+                    });
+                    const fileUrl = await uploadToAWS(files, loggedInUser.id, "itemPhotos");
 
                     await client.itemPhoto.create({
                         data: {
@@ -40,11 +40,11 @@ export default {
                                 }
                             }
                         }
-                    })
+                    });
 
-                    return item
+                    return item;
                 } catch {
-                    return null
+                    return null;
                 }
             }
         )

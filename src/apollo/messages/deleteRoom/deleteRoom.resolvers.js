@@ -21,8 +21,8 @@ export default {
                                 }
                             }
                         }
-                    })
-                    if (!room) throw new Error("없는 방입니다")
+                    });
+                    if (!room) throw new Error("없는 방입니다");
 
                     await client.room.update({
                         where: {
@@ -37,7 +37,7 @@ export default {
                                 ]
                             }
                         }
-                    })
+                    });
 
                     const checkRoomUser = await client.user.count({
                         where: {
@@ -47,23 +47,23 @@ export default {
                                 }
                             }
                         }
-                    })
+                    });
 
                     if (!checkRoomUser) {
                         await client.room.delete({
                             where: {
                                 id
                             }
-                        })
-                    }
+                        });
+                    };
                     return {
                         ok: true
-                    }
+                    };
                 } catch (error) {
                     return {
                         ok: false,
                         error: error.message
-                    }
+                    };
                 }
             }
         )

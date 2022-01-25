@@ -21,26 +21,26 @@ export default {
                                 }
                             }
                         }
-                    })
-                    if (!itemPhoto) throw new Error("없는 사진입니다.")
-                    else if (itemPhoto.userId !== loggedInUser.id) throw new Error("삭제 권한이 없습니다.")
-                    else if (itemPhoto.item.itemPhotos.length === 1) throw new Error("사진을 더 이상 삭제할 수 없습니다")
+                    });
+                    if (!itemPhoto) throw new Error("없는 사진입니다.");
+                    else if (itemPhoto.userId !== loggedInUser.id) throw new Error("삭제 권한이 없습니다.");
+                    else if (itemPhoto.item.itemPhotos.length === 1) throw new Error("사진을 더 이상 삭제할 수 없습니다");
                     else {
                         await client.itemPhoto.delete({
                             where: {
                                 id
                             }
-                        })
-                    }
+                        });
+                    };
 
                     return {
                         ok: true
-                    }
+                    };
                 } catch (error) {
                     return {
                         ok: false,
                         error: error.message
-                    }
+                    };
                 }
             }
         )

@@ -5,15 +5,15 @@
 수정일 : 2022.01.05
 */
 
-import "dotenv/config"
-import { ApolloServer } from "apollo-server-express"
-import { resolvers, typeDefs } from './apollo/schema'
-import { findUser } from './apollo/users/users.utils'
-import express from "express"
-import morgan from "morgan"
-import { createServer } from "http"
-import socialRouter from './express/router/socialRouter'
-import cors from "cors"
+import "dotenv/config";
+import { ApolloServer } from "apollo-server-express";
+import { resolvers, typeDefs } from './apollo/schema';
+import { findUser } from './apollo/users/users.utils';
+import express from "express";
+import morgan from "morgan";
+import { createServer } from "http";
+import socialRouter from './express/router/socialRouter';
+import cors from "cors";
 
 const server = new ApolloServer({
     typeDefs,
@@ -22,36 +22,36 @@ const server = new ApolloServer({
         if (req) {
             return {
                 loggedInUser: await findUser(req.headers.token)
-            }
+            };
         } else if (connection) {
             return {
                 loggedInUser: connection.context.loggedInUser
-            }
+            };
         }
     },
     subscriptions: {
         onConnect: async ({ token }) => {
-            if (!token) throw new Error("로그인이 필요합니다.")
+            if (!token) throw new Error("로그인이 필요합니다.");
             return {
                 loggedInUser: await findUser(token)
-            }
+            };
         }
     }
 })
 
-const app = express()
-app.use(express.json())
-app.use(cors())
-app.use(express.urlencoded({ extended: true }))
+const app = express();
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 // 소셜 로그인은 express서버를 사용해서 구현하기 위함
-app.use(morgan("tiny"))
-app.use("/social", socialRouter)
+app.use(morgan("tiny"));
+app.use("/social", socialRouter);
 
-server.applyMiddleware({ app })
+server.applyMiddleware({ app });
 
-const httpServer = createServer(app)
-server.installSubscriptionHandlers(httpServer)
+const httpServer = createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
-const PORT = process.env.PORT
-httpServer.listen(PORT, () => console.log(`GraphQL Server on http://localhost:${PORT}`))
+const PORT = process.env.PORT;
+httpServer.listen(PORT, () => console.log(`GraphQL Server on http://localhost:${PORT}`));

@@ -5,7 +5,7 @@
 수정일 : 2022.01.12
 */
 
-import AWS from "aws-sdk"
+import AWS from "aws-sdk";
 
 // AWS 접근 키 세팅
 AWS.config.update({
@@ -13,19 +13,19 @@ AWS.config.update({
         accessKeyId: process.env.AWS_KEY,
         secretAccessKey: process.env.AWS_SECRET,
     }
-})
+});
 
 // AWS S3 저장소에 이미지 저장하고 URL을 return
 export const uploadToAWS = async (file, userId, folderName) => {
-    const { filename, createReadStream } = await file[0]
+    const { filename, createReadStream } = await file[0];
     // AWS S3저장소에 겹치는 이미지 파일명이 최대한 겹치지 않게끔 한다.
-    const newFilename = `${folderName}/${userId}-${Date.now()}-${filename}`
+    const newFilename = `${folderName}/${userId}-${Date.now()}-${filename}`;
     const upload = await new AWS.S3().upload({
         Bucket: "cucumbermarket-upload",
         Key: newFilename,
         Body: createReadStream(),
         ACL: "public-read"
-    }).promise()
+    }).promise();
 
-    return upload?.Location
+    return upload?.Location;
 }

@@ -10,4 +10,4 @@ export default gql`
     type Mutation{
         createMessage(payload:String!,userId:Int,roomId:Int):Message
     }
-`
+`;

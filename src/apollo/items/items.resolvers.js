@@ -38,15 +38,15 @@ export default {
         }),
 
         isLiked: async ({ id }, _, { loggedInUser }) => {
-            if (!loggedInUser) return false
+            if (!loggedInUser) return false;
 
             const check = await client.like.count({
                 where: {
                     userId: loggedInUser.id,
                     itemId: id
                 }
-            })
-            return Boolean(check)
+            });
+            return Boolean(check);
         },
 
         itemPhotoCount: ({ id }) => client.itemPhoto.count({

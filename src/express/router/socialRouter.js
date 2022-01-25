@@ -4,14 +4,14 @@
 수정일 : 2022.01.16
 */
 
-import express from "express"
-import { githubLogin, kakaoLogin, naverLogin } from '../controller/socialController'
+import express from "express";
+import { githubLogin, kakaoLogin, naverLogin } from '../controller/socialController';
 
-const socialRouter = express.Router()
+const socialRouter = express.Router();
 
-socialRouter.post("/github", githubLogin)
+socialRouter.post("/github", githubLogin);
 
-socialRouter.post("/naver", naverLogin)
+socialRouter.post("/naver", naverLogin);
 
-socialRouter.post("/kakao", kakaoLogin)
-export default socialRouter
+socialRouter.post("/kakao", kakaoLogin);
+export default socialRouter;

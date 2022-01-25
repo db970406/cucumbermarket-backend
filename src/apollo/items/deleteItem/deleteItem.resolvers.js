@@ -17,26 +17,26 @@ export default {
                         select: {
                             userId: true
                         }
-                    })
-                    if (!item) throw new Error("없는 물건입니다.")
-                    else if (item.userId !== loggedInUser.id) throw new Error("삭제 권한이 없습니다.")
+                    });
+                    if (!item) throw new Error("없는 물건입니다.");
+                    else if (item.userId !== loggedInUser.id) throw new Error("삭제 권한이 없습니다.");
                     else {
                         await client.item.delete({
                             where: {
                                 id
                             }
-                        })
-                    }
+                        });
+                    };
 
                     return {
                         ok: true
-                    }
+                    };
                 } catch (error) {
                     return {
                         ok: false,
                         error: error.message
-                    }
-                }
+                    };
+                };
             }
         )
     }

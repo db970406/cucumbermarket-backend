@@ -1,5 +1,5 @@
-import { PubSub } from "apollo-server"
+import { PubSub } from "apollo-server";
 
-const pubsub = new PubSub()
+const pubsub = new PubSub();
 
-export default pubsub
+export default pubsub;

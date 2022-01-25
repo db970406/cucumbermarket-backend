@@ -18,9 +18,9 @@ export default {
                         select: {
                             userId: true
                         }
-                    })
-                    if (!item) throw new Error("없는 물건입니다.")
-                    else if (item.userId !== loggedInUser.id) throw new Error("수정 권한이 없습니다.")
+                    });
+                    if (!item) throw new Error("없는 물건입니다.");
+                    else if (item.userId !== loggedInUser.id) throw new Error("수정 권한이 없습니다.");
                     else {
                         const item = await client.item.update({
                             where: {
@@ -30,11 +30,11 @@ export default {
                                 title,
                                 description
                             }
-                        })
+                        });
 
                         let fileUrl;
                         if (file) {
-                            fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos")
+                            fileUrl = await uploadToAWS(file, loggedInUser.id, "itemPhotos");
                             await client.itemPhoto.create({
                                 data: {
                                     user: {
@@ -49,13 +49,13 @@ export default {
                                     },
                                     file: fileUrl
                                 }
-                            })
-                        }
-                        return item
-                    }
+                            });
+                        };
+                        return item;
+                    };
                 } catch {
-                    return null
-                }
+                    return null;
+                };
             }
         )
     }

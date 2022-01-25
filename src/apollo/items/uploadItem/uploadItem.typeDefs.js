@@ -4,7 +4,7 @@
 수정일 : ------
 */
 
-import { gql } from "apollo-server"
+import { gql } from "apollo-server";
 
 export default gql`
     type Mutation{
@@ -14,4 +14,4 @@ export default gql`
             files:Upload!
         ):Item
     }
-`
+`;

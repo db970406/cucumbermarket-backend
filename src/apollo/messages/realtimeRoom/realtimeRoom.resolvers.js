@@ -26,8 +26,8 @@ export default {
                                 }
                             }
                         }
-                    })
-                    if (!room) throw new Error("찾을 수 없는 방입니다")
+                    });
+                    if (!room) throw new Error("찾을 수 없는 방입니다");
 
                     /*
                     NEW_MESSAGE를 pubsub의 trigger로 설정하고 trigger가 감지되면 
@@ -36,7 +36,7 @@ export default {
                     return withFilter(
                         () => pubsub.asyncIterator(NEW_MESSAGE),
                         (payload, variables) => payload.realtimeRoom.roomId === variables.id
-                    )(root, args, ctx, info)
+                    )(root, args, ctx, info);
                 }
             )
         }

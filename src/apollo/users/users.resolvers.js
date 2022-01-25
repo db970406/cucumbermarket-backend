@@ -34,8 +34,8 @@ export default {
                 where: {
                     userId: id
                 }
-            })
-            return count
+            });
+            return count;
         },
 
         itemCount: ({ id }) => client.item.count({

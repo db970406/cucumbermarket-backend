@@ -5,9 +5,9 @@
 수정일 : 2022.01.07
 */
 
-import client from '../client'
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
+import client from '../client';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 /* 
 서버가 요청을 받을 때 브라우저에게 토큰을 받아 
@@ -16,16 +16,16 @@ import bcrypt from "bcrypt"
 */
 export const findUser = async (token) => {
     try {
-        if (!token) return null
-        const { id } = await jwt.verify(token, process.env.TOKEN_SECRET_KEY)
+        if (!token) return null;
+        const { id } = await jwt.verify(token, process.env.TOKEN_SECRET_KEY);
 
-        const user = await client.user.findUnique({ where: { id } })
+        const user = await client.user.findUnique({ where: { id } });
 
-        return user ? user : null
+        return user ? user : null;
     } catch {
-        return null
-    }
-}
+        return null;
+    };
+};
 
 
 /* 
@@ -33,30 +33,30 @@ export const findUser = async (token) => {
 */
 export const checkLoginResolver = (resolver) => (root, args, ctx, info) => {
     if (!ctx.loggedInUser) {
-        const { returnType, parentType, operation } = info
+        const { returnType, parentType, operation } = info;
 
         // 로그인이 필요한 resolver가 mutation operation이지만 model을 반환할 경우
         if (returnType !== "MutationResults" && String(parentType) === "Mutation") {
-            return null
-        }
+            return null;
+        };
 
         // 로그인이 필요한 resolver가 query operation의 경우 null을 return
         if (operation.operation === "query") {
-            return null
-        }
+            return null;
+        };
         return {
             ok: false,
             error: "로그인이 필요합니다."
-        }
+        };
     }
-    return resolver(root, args, ctx, info)
+    return resolver(root, args, ctx, info);
 }
 
 // 비밀번호 조건
 export const pwStandard = async (password) => {
-    const regExpPassword = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(password)
-    if (!regExpPassword) throw new Error("비밀번호는 8자리 이상으로 숫자, 문자, 특수문자가 필요합니다.")
+    const regExpPassword = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(password);
+    if (!regExpPassword) throw new Error("비밀번호는 8자리 이상으로 숫자, 문자, 특수문자가 필요합니다.");
 
-    const hashPassword = await bcrypt.hash(password, 10)
-    return hashPassword
-}
+    const hashPassword = await bcrypt.hash(password, 10);
+    return hashPassword;
+};
