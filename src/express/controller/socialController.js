@@ -1,7 +1,7 @@
 /* 
 작성자 : SJ
 작성일 : 2022.01.05
-수정일 : 2022.01.19
+수정일 : 2022.01.27
 */
 
 import fetch from "node-fetch";
@@ -12,9 +12,31 @@ import jwt from "jsonwebtoken";
 // 깃허브, 네이버 소셜로그인 구현
 // 카카오는 사업자 미등록으로 비즈앱이 아니라 이메일을 못가져와서 구현은 못하였고 방법만 숙지함
 
+const makeReqUrl = (
+    defaultUrl,
+    code,
+    clientId,
+    clientSecret,
+    grantType,
+    state,
+    redirectUri,
+) => {
+    const config = {
+        ...(clientId && { client_id: clientId }),
+        ...(clientSecret && { client_secret: clientSecret }),
+        ...(grantType && { grant_type: grantType }),
+        ...(state && { state }),
+        ...(redirectUri && { redirect_uri: redirectUri }),
+        code
+    }
+    const params = new URLSearchParams(config).toString()
+    const reqUrl = `${defaultUrl}?${params}`
+    return reqUrl
+}
+
 export const githubLogin = async (req, res) => {
     const { code } = req.body;
-    const baseUrl = "https://github.com/login/oauth/access_token";
+    /* const baseUrl = "https://github.com/login/oauth/access_token";
     const config = {
         client_id: process.env.SOCIAL_GITHUB_KEY,
         client_secret: process.env.SOCIAL_GITHUB_SECRET,
@@ -22,7 +44,14 @@ export const githubLogin = async (req, res) => {
     };
     const params = new URLSearchParams(config).toString();
 
-    const reqUrl = `${baseUrl}?${params}`;
+    const reqUrl = `${baseUrl}?${params}`;*/
+    const reqUrl = makeReqUrl(
+        "https://github.com/login/oauth/access_token",
+        code,
+        process.env.SOCIAL_GITHUB_KEY,
+        process.env.SOCIAL_GITHUB_SECRET,
+    )
+
     const token = await (
         await fetch(reqUrl, {
             method: "POST",
@@ -31,6 +60,7 @@ export const githubLogin = async (req, res) => {
             }
         })
     ).json();
+
 
     if ("access_token" in token) {
         const { access_token } = token;
@@ -89,7 +119,7 @@ export const githubLogin = async (req, res) => {
 
 export const naverLogin = async (req, res) => {
     const { code } = req.body;
-    const baseUrl = `https://nid.naver.com/oauth2.0/token`;
+    /* const baseUrl = `https://nid.naver.com/oauth2.0/token`;
     const config = {
         grant_type: "authorization_code",
         client_id: process.env.SOCIAL_NAVER_KEY,
@@ -99,7 +129,16 @@ export const naverLogin = async (req, res) => {
     };
 
     const params = new URLSearchParams(config).toString();
-    const reqUrl = `${baseUrl}?${params}`;
+    const reqUrl = `${baseUrl}?${params}`; */
+
+    const reqUrl = makeReqUrl(
+        `https://nid.naver.com/oauth2.0/token`,
+        code,
+        process.env.SOCIAL_NAVER_KEY,
+        process.env.SOCIAL_NAVER_SECRET,
+        "authorization_code",
+        process.env.SOCIAL_NAVER_STATE
+    )
 
     const token = await (
         await fetch(reqUrl, {
@@ -162,7 +201,6 @@ export const kakaoLogin = async (req, res) => {
     };
 
     const params = new URLSearchParams(config).toString();
-
     const reqUrl = `${baseUrl}?${params}`;
 
     const token = await (
