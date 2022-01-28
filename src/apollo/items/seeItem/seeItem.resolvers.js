@@ -4,6 +4,8 @@
 수정일 : ------
 */
 
+// 선택한 물건을 보여주는 기능
+
 import client from '../../client';
 
 export default {

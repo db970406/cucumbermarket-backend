@@ -4,6 +4,8 @@
 수정일 : 2022.01.12
 */
 
+// 물건을 업로드할 수 있는 기능
+
 import client from '../../client';
 import { uploadToAWS } from '../../public/public.utils';
 import { checkLoginResolver } from '../../users/users.utils';

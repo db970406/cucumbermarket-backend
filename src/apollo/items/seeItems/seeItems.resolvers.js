@@ -4,6 +4,8 @@
 수정일 : 2022.01.07
 */
 
+// 메인 Home에 쓰이는 기능으로 생성된 날짜 별로 물건을 가져오는 기능
+
 import client from '../../client';
 
 export default {

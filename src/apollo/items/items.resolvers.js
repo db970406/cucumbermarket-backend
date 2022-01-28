@@ -1,9 +1,10 @@
 /* 
 작성자 : SJ
-파일 역할 : Item 모델의 Computed fields
 작성일 : 2022.01.05
 수정일 : 2022.01.14
 */
+
+// Item 모델의 Computed fields
 
 import client from '../client';
 

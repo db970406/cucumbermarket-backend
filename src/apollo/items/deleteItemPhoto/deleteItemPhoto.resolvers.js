@@ -4,6 +4,8 @@
 수정일 : 2022.01.10
 */
 
+// 물건에 속한 사진의 소유자인지 확인하고 남아 있는 사진이 1장이 아니라면 사진 하나를 삭제하는 기능
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

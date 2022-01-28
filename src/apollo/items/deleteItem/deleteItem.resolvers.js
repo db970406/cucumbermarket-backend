@@ -4,6 +4,8 @@
 수정일 : ------
 */
 
+// 물건의 소유자인지 체크하여 삭제 권한이 있는지 판단하고 물건을 삭제하는 기능
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

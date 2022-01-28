@@ -4,6 +4,8 @@
 수정일 : 2022.01.19
 */
 
+// 물건의 id와 유저의 id로 이미 like가 있는지 체크하여 토글로 해당 유저가 하나의 물건에 하나의 like만 누를 수 있게 함
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

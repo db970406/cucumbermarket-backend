@@ -4,6 +4,8 @@
 수정일 : 2022.01.10
 */
 
+// 물건의 소유자인지 확인하고 사진을 추가하거나 제목, 내용을 수정할 수 있는 기능
+
 import client from '../../client';
 import { uploadToAWS } from '../../public/public.utils';
 import { checkLoginResolver } from '../../users/users.utils';
