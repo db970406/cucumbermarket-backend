@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// subscription operator를 통해 해당 방의 trigger를 감지한다.
+
 import { withFilter } from 'apollo-server';
 import client from '../../client';
 import pubsub from '../../pubsub';

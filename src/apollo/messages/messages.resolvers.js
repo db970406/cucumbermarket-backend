@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// Message, Room 모델의 Computed fields
+
 import client from '../client';
 
 export default {

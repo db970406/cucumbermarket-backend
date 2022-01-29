@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// 메시지의 unread를 read로 바꿔주는 기능으로 방에 입장하면 실행된다.
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

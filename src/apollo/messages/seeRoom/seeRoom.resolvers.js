@@ -4,6 +4,8 @@
 수정일 : 2022.01.14
 */
 
+// 방에 입장하는 기능
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

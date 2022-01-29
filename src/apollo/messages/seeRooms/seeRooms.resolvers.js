@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// 내가 속해있는 방을 모두 보여주는 기능
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

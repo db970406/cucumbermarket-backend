@@ -4,6 +4,11 @@
 수정일 : 2022.01.13
 */
 
+/**
+ * roomId를 받은 경우 로그인한 유저가 그 방에 속해있는지 확인하여 Message를 만들어 연결시킨다.
+ * userId를 받은 경우 우선 그 user와 로그인한 유저가 속한 방이 있는지 체크한 다음 있으면 그 방을, 없으면 새로운 방을 만들어서 Message와 연결한다.
+ */
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 import pubsub from '../../pubsub';

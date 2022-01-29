@@ -4,6 +4,10 @@
 수정일 : 2022.01.16
 */
 
+/**
+ * 대화할 유저와의 방이 있는 지 확인하고 있다면 그 방을, 없다면 새로 방을 만들어준다.
+ */
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 

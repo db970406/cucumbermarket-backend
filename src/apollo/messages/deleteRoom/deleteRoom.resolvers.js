@@ -4,6 +4,10 @@
 수정일 : ------
 */
 
+/**
+ * 로그인한 유저가 방에서 나갈 수 있게하는 기능으로 만약 방에 아무도 없게 된다면 그 방을 DB에서 삭제시킨다.
+ */
+
 import client from '../../client';
 import { checkLoginResolver } from '../../users/users.utils';
 
