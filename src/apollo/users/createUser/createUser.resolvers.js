@@ -1,9 +1,10 @@
 /* 
 작성자 : SJ
-파일 역할 : createUser mutation 요청 시 처리하는 방법. 이하 모든 resolver 설명 같음
 작성일 : 2022.01.04
 수정일 : -----
 */
+
+// username과 email이 존재하는 지 확인한 다음 계정을 만든다.
 
 import client from "../../client";
 import { pwStandard } from '../users.utils';

@@ -4,6 +4,8 @@
 수정일 : 2022.01.15
 */
 
+// 유저의 정보를 수정하는 기능
+
 import client from '../../client';
 import { checkLoginResolver, pwStandard } from '../users.utils';
 import { uploadToAWS } from "../../public/public.utils";
@@ -24,7 +26,7 @@ export default {
                 }
             ) => {
                 try {
-                    /* if (username || email) {
+                    if (username || email) {
                         const isAlreadyTaken = await client.user.count({
                             where: {
                                 OR: [
@@ -42,7 +44,7 @@ export default {
                     let filterPassword = null
                     if (password) {
                         filterPassword = await pwStandard(password)
-                    } */
+                    }
 
                     let avatarUrl = null;
                     if (avatar?.length > 0) {
@@ -55,9 +57,9 @@ export default {
                         },
                         data: {
                             name,
-                            /* username,
+                            username,
                             email,
-                            ...(filterPassword && { password: filterPassword }), */
+                            ...(filterPassword && { password: filterPassword }),
                             location,
                             introduce,
                             ...(avatarUrl && { avatar: avatarUrl })

@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// 현재 로그인한 유저의 정보를 return한다.
+
 import client from '../../client';
 import { checkLoginResolver } from '../users.utils';
 

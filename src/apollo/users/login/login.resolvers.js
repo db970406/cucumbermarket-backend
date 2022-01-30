@@ -4,6 +4,8 @@
 수정일 : -----
 */
 
+// 로그인 처리 후 jwt token을 같이 return
+
 import bcrypt from "bcrypt";
 import client from '../../client';
 import jwt from "jsonwebtoken";

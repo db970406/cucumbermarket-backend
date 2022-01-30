@@ -1,9 +1,10 @@
 /* 
 작성자 : SJ
-파일 역할 : User 모델의 Computed fields
 작성일 : 2022.01.05
 수정일 : 2022.01.19
 */
+
+// User 모델의 Computed fields
 
 import client from '../client';
 
